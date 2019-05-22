@@ -53,8 +53,6 @@ const searchFilms = () => {
         <p>${response.Rated}</p>
         `
         */
-
-
         
 // FUNCIÓN PARA DIBUJAR DATA OMdb EN PANATALLA
 const drawOMdbFilms = (data) => {
@@ -64,8 +62,7 @@ const drawOMdbFilms = (data) => {
     films = "";
     data.Search.forEach(element => {
     //EL ID DEL DIV ES PARA LLAMAR E IMPRIMIR EL MODAL
-    films += 
-    
+    films +=  
     `
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">    
     <div class="card bg-light mb-3" align= "middle">
@@ -79,15 +76,13 @@ const drawOMdbFilms = (data) => {
     </div>
     </div>
     `  
-
-//consultar a la url omdb por ID tomando el id de movies
+    // Consultar a la url omdb por ID tomando el id de movies
    fetch(urlId + element.imdbID)
    .then(response => response.json())
    .then(response => {
        moviesModal = response;
        console.log(moviesModal);
        cardsModal += 
-      
        `  
         <div class="modal fade" id="exampleModal${moviesModal.imdbID}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
@@ -117,27 +112,23 @@ const drawOMdbFilms = (data) => {
              </div>
         </div>
         `
-
-
     //Jquery del modal
-    
     $("#exampleModal" + moviesModal.imdbID).on("shown.bs.modal", function () {
         $("#myInput").trigger("focus")
     });
-    //imprimiendo el modal
+    // Imprimiendo el modal
     movieSearchId.innerHTML = cardsModal;
 });   
 myContent.innerHTML = films;
     })
 }
 
-
 // FILTRAR PELICULAS POR GENERO
-btnAction.addEventListener('click', () => {
+genre.addEventListener('change', () => {
     genresFilter()
 })
 const genresFilter = () => {
-    let genresFilms = '&with_genres=28'
+    let genresFilms = '&with_genres='+document.getElementById("genre").value;
     fetch(urlTMdb+genresFilms)
     .then(response => response.json())
     .then((data) => {

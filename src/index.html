@@ -53,28 +53,46 @@
       </div>
     </div>
   </div>
-
-  <main>
-    <div>
-      <h1>Cine Familiar</h1>
-      <input id="nameMovie">
-      <button id="btn">Buscar por palabra clave</button>
-      <button id="btnAction">Genero Acción</button>
-      <br><br>
-    </div>
-    <div class="container">
-        <div id="myContent" class= "card-deck">
-        </div>      
-    </div>
- </main>
- 
-  
-      <div id= "movieSearchId">
-
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"><img src="img/pop-corn.png" width="30" alt="Inicio"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <!-- Buscador por texto y su botón -->
+      <div class="input-group-prepend">
+        <input id="nameMovie" type="text" class="form-control" placeholder="Escribe una palabra clave">
+        <button id="btn" type="button" class="btn btn-primary">Buscar</button>
       </div>
+      <div class="navbar-nav mr-auto">
+        <!-- SELECT POR GENERO -->
+        <p>Selecciona tu Pelicula por Genero</p>
+        <select id="genre" class="browser-default">
+          <option value="">Seleccione un género</option>
+          <option value="28">Action</option>
+          <option value="12">Adventure</option>
+          <option value="16">Animation</option>
+          <option value="35">Comedy</option>
+          <option value="99">Documentary</option>
+          <option value="18">Drama</option>
+          <option value="10751">Family</option>
+          <option value="27">Horror</option>
+          <option value="9648">Mistery</option>
+          <option value="10749">Romance</option>
+          <option value="878">Science Fiction</option>
+          <option value="53">Thriller</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="container">
+      <div id="myContent" class= "card-deck"></div>      
+    </div>
+  </main>
+  
+  <div id= "movieSearchId"></div>
       
-   
-
   <footer>
     <div class="row">
       <div class="col-12">
