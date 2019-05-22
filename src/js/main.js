@@ -8,11 +8,14 @@ const urlOMdb = 'http://www.omdbapi.com/?apikey=857ae5f9&page=1&plot=full&type=m
 const urlTMdb ="https://api.themoviedb.org/3/discover/movie?api_key=665c6e4dc27510e065d9033504dfed36";
 // URL DE IMG DE POSTER OMDB API + APIKEY
 const urlPoster = 'http://img.omdbapi.com/?apikey=857ae5f9';
-
-const myContent = document.getElementById('myContent');
+// URL DE OMDB API POR ID
+const urlId = 'http://www.omdbapi.com/?apikey=857ae5f9&type=movie&plot=full&i=';
+const myContent = document.getElementById("myContent");
+const movieSearchId = document.getElementById("movieSearchId");
 let films = '';
 let dataFilms = '';
-
+let moviesModal;
+let cardsModal = '';
 // BUSCAR PELICULA POR NOMBRE O PALABRA CLAVE
 //GUARDA EL NOMBRE DE LA PELICULA PARA CONCATENARLO CON LA URL
 btn.addEventListener('click', () => {
@@ -56,6 +59,7 @@ const searchFilms = () => {
 // FUNCIÓN PARA DIBUJAR DATA OMdb EN PANATALLA
 const drawOMdbFilms = (data) => {
     myContent.innerHTML = '';
+    movieSearchId.innerHTML = '';
     dataFilms ="";
     films = "";
     data.Search.forEach(element => {
@@ -65,20 +69,68 @@ const drawOMdbFilms = (data) => {
     `
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">    
     <div class="card bg-light mb-3" align= "middle">
-    <div id = "${element.imdbID}" data-toggle="modal" data-target = "modal${element.imdbID}" class = "modal-trigger">
-        <img src= "${element.Poster}" class= "card-img-top" alt= "${element.Title}" id="cardImage" onerror="this.onerror=null;this.src='img/notavail.jpg';">
-        <div class="card-body text-dark">
-            <p class="card-name">Title: ${element.Title}</p>
-            <p class="card-num"> Year: ${element.Year}</p>
-        </div>
-    </div>
+        <a data-toggle="modal" data-target= "#exampleModal${element.imdbID}">
+            <img src= "${element.Poster}" class= "card-img-top" alt= "${element.Title}" id="cardImage" onerror="this.onerror=null;this.src='img/notavail.jpg';">
+            <div class="card-body text-dark">
+                <p class="card-name">Title: ${element.Title}</p>
+                <p class="card-num"> Year: ${element.Year}</p>
+            </div>
+        </a>
     </div>
     </div>
     `  
-   
+
+//consultar a la url omdb por ID tomando el id de movies
+   fetch(urlId + element.imdbID)
+   .then(response => response.json())
+   .then(response => {
+       moviesModal = response;
+       console.log(moviesModal);
+       cardsModal += 
+      
+       `  
+        <div class="modal fade" id="exampleModal${moviesModal.imdbID}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="x-close">                     
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>  
+                    </div>
+                    <div class="modal-body">
+                        <div class = "title-modal">
+                            <h5>${moviesModal.Title} ${moviesModal.Year}</h5>  
+                        </div>           
+                    <div class= "modal-img">
+                        <img src =${moviesModal.Poster} class="img-movie-poster">
+                    </div>
+                    <div>
+                        <p>Sinopsis:${moviesModal.Plot} </p>
+                        <p>Genero: ${moviesModal.Genre}.</p>
+                        <p>Actores: ${moviesModal.Actors}</p>
+                        <p>Director: ${moviesModal.Director}</p>
+                        <p>Premios: ${moviesModal.Awards}</p>
+                        <p>Website:<a href= "${moviesModal.Website}">${moviesModal.Website}</a> </p>
+                     </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+        `
+
+
+    //Jquery del modal
+    
+    $("#exampleModal" + moviesModal.imdbID).on("shown.bs.modal", function () {
+        $("#myInput").trigger("focus")
     });
-    myContent.innerHTML = films;
+    //imprimiendo el modal
+    movieSearchId.innerHTML = cardsModal;
+});   
+myContent.innerHTML = films;
+    })
 }
+
 
 // FILTRAR PELICULAS POR GENERO
 btnAction.addEventListener('click', () => {
