@@ -47,16 +47,36 @@ const searchFilms = () => {
             `
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">    
             <div class="card bg-light mb-3" align= "middle">
-            <img src= "${response.Search[index].Poster}" class= "card-img-top" alt= "Card image" id="cardImage">
-            <div class="card-body text-dark">
-            <p class="card-name">Title: ${response.Search[index].Title}</p>
-            <p class="card-num"> Year: ${response.Search[index].Year}</p>
+            <div id = "${response.Search[index].imdbID}" data-toggle="modal" data-target = "modal${response.Search[index].imdbID}" class = "modal-trigger">
+                <img src= "${response.Search[index].Poster}" class= "card-img-top" alt= "Card image" id="cardImage" onerror="this.onerror=null;this.src='img/notavail.jpg';">
+                <div class="card-body text-dark">
+                    <p class="card-name">Title: ${response.Search[index].Title}</p>
+                    <p class="card-num"> Year: ${response.Search[index].Year}</p>
+                </div>
+            </div>
+
+            <div id="modal${response.Search[index].imdbID}" class="modal">
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect btn-flat">X</a>
+                </div>
+                <div class="modal-content row">                        
+                    <div id="poster" class="col s5 m5 l5">
+                        <img src="${response.Search[index].Poster}" alt="${response.Search[index].Title}" onerror="this.onerror=null;this.src='img/notavail.jpg';"/>
+                    </div>
+                    <div id="description"class="col s7 m7 l7">
+                        <h4>${response.Search[index].Title}</h4>
+                        <p>${response.Search[index].Year}</p>          
+                    </div>
+                </div>
+            </div>
             </div>
             </div>
             `  
         }   
         }
+        $('.modal').modal();
     })
+    
     //  <p>${response.Search[index].Title}</p>
     //  <img src= "${response.Search[index].Poster}" alt="image" >
     // <p>${response.Search[index].Year}</p>
