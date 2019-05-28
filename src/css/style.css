@@ -1,0 +1,39 @@
+body{
+   background-image: url("../img/background.jpg");
+}
+#logo{
+   max-width:50rem;
+   max-height:50rem;
+   width:100%;
+   height:auto;
+}
+
+#ima1{
+   min-width: 18rem;
+   min-height:auto;
+  
+   width:100%;
+   height:auto;
+}
+
+#ima2{
+   min-width: 18rem;
+   min-height:auto;
+  
+   width:100%;
+   height:auto;
+}
+
+#ima3{
+   min-width: 18rem;
+   min-height:auto;
+   
+   width:100%;
+   height:auto;
+}
+#nav{
+   padding: 1rem 1rem;
+}
+.margin-selec{
+   margin-left: 1rem;
+}
